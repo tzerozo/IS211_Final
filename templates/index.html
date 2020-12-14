@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page {% endblock %}
+
+{% block body %}
+<br>
+	{% with messages= get_flashed_messages() %}
+		{% if messages %}
+			{% for msg in messages %}
+				<p>{{msg}}</p>
+			{% endfor%}
+		{% endif %}
+	{% endwith %}
+	<br>
+		
+
+<br>
+<hr>
+	{% if not session.logged_in %}
+		<H1>Book Shelf</H1>
+		<h1>WELCOME!</h1>
+		<p>Please login first to check your books.</p>
+		<a href='/login'> Click Here to login</a>
+	{% else %}
+		<table>
+			<tr>
+				<td colspan="5" style="text-align:center"><strong>Book Shelf</strong></td>
+			</tr>
+			<tr>
+				<td>ISBN #</td><td>Title</td>
+				<td>Author(s)</td>
+				<td># Pages</td>
+				<td>Rating</td><
+				td>Delete</td>
+			</tr>
+	
+		{% for book in books %}
+			<tr>
+				<td>{% if book.thumbnail %}<img src="{{book.thumbnail}}">{% endif %}</td>
+				<td>{{book.isbn}}</td><td>{{book.title}}</td><td>{{book.authors}}</td>
+				<td>{{book.pagecount}}</td>
+				<td>{{book.averagerating}}</td>
+				<td><a href="/delete?id={{book.id}}">Delete</a></td>
+			</tr>
+		{% endfor %}
+		</table>
+	<br>
+{% endif %}
+
+
+
+
+{% endblock %}
+
+		
+	
